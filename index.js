@@ -4,8 +4,13 @@ let coin = document.querySelector(".coin");
 let flipBtn = document.querySelector("#flip-button");
 let resetBtn = document.querySelector("#reset-button");
 
-flipBtn.addEventListener("click", ()=>{
-    let i = Math.floor(Math.random() * 2);
+let flipSound = new Audio('coin_toss.mp3');
+// we made a seperate function for flipping the coin 
+function flipCoin(){
+
+    flipSound.currentTime = 0;
+    flipSound.play();
+    let i = Math.floor(Math.random() * 2); 
     coin.style.animation = "none";
     if(i){
         setTimeout(function(){
@@ -20,8 +25,11 @@ flipBtn.addEventListener("click", ()=>{
     }
     setTimeout(updateStats, 3000);
     disableButton();
-});
+}
+//this function will be called by the button and also when img of coin is clicked
 
+flipBtn.addEventListener("click",flipCoin);
+coin.addEventListener("click",flipCoin);
 function updateStats(){
     document.querySelector("#heads-count").textContent = `Heads: ${heads}` ;
     document.querySelector("#tails-count").textContent = `Tails: ${tails}` ;
